@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    margin-left: -12px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 2.5rem;
+}
+
+.under {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.left-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info i {
+    font-size: 4px;
+    margin-right: 5px;
+}
+
+.username {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.instagram-text {
+    color: rgb(95, 95, 95);
+}
+
+.change-password-text {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.session-text,
+.password-requirements {
+    margin-bottom: 15px;
+    color: #999;
+    font-size: 12px;
+}
+
+.input-container {
+    margin-bottom: 15px;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 0.8rem;
+    border: 1px solid rgb(203, 203, 203);
+    border-radius: 10px;
+    box-sizing: border-box;
+    outline: none;
+    background-color: rgb(241, 241, 241);
+    color: rgb(203, 203, 203);
+}
+
+.forgotten-password {
+    margin-top: 37px;
+    margin-bottom: 17px;
+    text-decoration: none;
+    color: #0095f6;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.change-password-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 11rem;
+    background-color: #0095f6;
+    /* border: none; */
+    border: 3px solid #0095f6;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.change-password-button:hover {
+    background-color: #31adff;
+    border:3px solid #31adff;
+}

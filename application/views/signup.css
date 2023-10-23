@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #ffffff;
+}
+
+.container {
+    text-align: center;
+}
+
+.instagram-title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.signup-text {
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 13px;
+    margin-left: 3em;
+    margin-right: 3em;
+}
+
+.input-container {
+    margin-bottom: 20px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+input {
+    width: 17.5em;
+    /* width: calc(100% - 20px); */
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.signup-button {
+    width: 17.5em;
+    /* width: calc(100% - 20px); */
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #3897f0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+}
+
+.signup-button:hover {
+    background-color: #4fa3d1;
+}
+
+.terms-text {
+    margin-left: 3em;
+    margin-right: 3em;
+    margin-top: 20px;
+    color: #555;
+    font-size: 13px;
+}
+
+.bold-text {
+    font-weight: bold;
+}
