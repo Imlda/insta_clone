@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 20px;
+        }
+
+        section.content {
+            min-height: calc(100vh = 100px);
+            width: 576px;
+            margin: 0 auto;
+        }
+
+        header ul li {
+            display: inline-block;
+        }
+
+        div.new-post-box {
+            padding: 5px;
+        }
+
+        div.post-container {
+            padding: 5px;
+            border: 1px solid black;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        img {
+            width: 550px;
+        }
+
+        div.pagination.box {
+            border: 1px solid black;
+            text-align: center;
+            padding: 5px;
+            margin-bottom: 30px;
+        }
+        
+    </style>
+    {% if title %}
+        <title>{{ title }} - Website</title>
+    {% else %}
+        <title>Website</title>
+    {% endif %}
+</head>
+<body>
+    <section class="content">
+        {% if current_user.is_authenticated %}
+            {% include "components/login-header.html" %}
+        {% else %}
+            {% include "components/logout-header.html" %}
+        {% endif %}
+        <div class="alert-box">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        {% block content %}{% endblock %}
+        {% include "components/footer.html" %}
+    </section>
+</body>
+</html>

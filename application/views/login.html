@@ -1,26 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="login.css">
-    <title>Instagram Login</title>
-</head>
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="form-label">Login</legend>
 
-<body>
-    <div class="container">
-        <h1 class="instagram-title">Instagram</h1>
-        <div class="input-container">
-            <input type="text" placeholder="Username or Email">
-        </div>
-        <div class="input-container">
-            <input type="password" id="password" placeholder="Password">
-            <i class='bx bx-low-vision eye-icon'></i>
-        </div>
-        <button class="login-button">Log In</button>
+                <div class="group-form">
+                    {{ form.username.label(class="form-label") }}
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class="group-form">
+                    {{ form.password.label(class="form-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="group-form">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+            <div class="">
+                <small class="form-text">
+                    <a href="#">Lupa kata sandi?</a>
+                </small>
+            </div>
+            <small class="form-text">
+                <a href="{{ url_for('signup') }}">Belum punya akun?</a>
+            </small>
+        </form>
     </div>
-</body>
-
-</html>
+</div>
+{% endblock content %}

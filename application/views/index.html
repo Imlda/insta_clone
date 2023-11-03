@@ -1,0 +1,46 @@
+
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="form-box" style="border: 1px black solid;">
+        <h2>Create a New Post</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.post_pic.label(class="form-control-label") }}
+                {{ form.post_pic(class="form-control-file") }}
+                {% for error in form.post_pic.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.caption.label(class="form-control-label") }}
+                {{ form.caption(class="form-control") }}
+                {% for error in form.caption.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+
+    <div class="post-container">
+        {% for post in posts %}
+            <div class="post" style="border: 1px black solid; margin: 10px 0px;">
+                <img src="{{ url_for('static', filename='' + post.photo) }}" alt="Post Image">
+                <p>{{ post.caption }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pagination-box">
+        {% for page_number in posts.iter_pages() %}
+            {% if page_number == posts.page %}
+                <a href="{{ url_for('index', page=page_number) }}" style="color: red;">{{ page_number }}</a>
+            {% else %}
+                <a href="{{ url_for('index', page=page_number) }}" style="color: black;">{{ page_number }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, TextAreaField, SubmitField, EmailField, PasswordField
+from wtforms import StringField, EmailField, SubmitField, PasswordField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 from application.utils import exists_email, not_exists_email, exists_username
@@ -9,7 +9,6 @@ class LoginForm(FlaskForm):
     # email = StringField('Email', validators=[DataRequired(), Email(), Length(max=128)])
     username = StringField("username", validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
 class SignUpForm(FlaskForm):
@@ -26,10 +25,11 @@ class EditProfile(FlaskForm):
     profile_pic = FileField("profile picture", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     password = PasswordField("password", validators=[DataRequired()])
     submit = SubmitField("update profile")
+    bio = TextAreaField("bio")
 
-class CreatePost(FlaskForm):
+class CreatePostForm(FlaskForm):
     caption = TextAreaField("caption")
-    image = FileField("picture", validators=[DataRequired(), FileAllowed(["jpg", "png", "jpeg"])])
+    post_pic = FileField("picture", validators=[DataRequired(), FileAllowed(["jpg", "png", "jpeg"])])
     submit = SubmitField('Create Post')
 
 class EditPost(FlaskForm):
