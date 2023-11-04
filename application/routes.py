@@ -21,7 +21,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and password == user.password:
             login_user(user)
-            return redirect(url_for('profile'))
+            return redirect(url_for('profile', username=username))
         else:
             flash('Invalid username or password', 'error')
 
@@ -33,20 +33,16 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-# @app.route('/profile')
-# @login_required
-# def profile():
-#     return render_template('profile.html', title=f'{current_user.fullname} Profile')
-
 @app.route('/<string:username>')
 @login_required
 def profile(username):
-    # user = User.query.filter_by(username=username).first()
-    # if user:
-    #     return render_template('profile.html', title=f'{user.fullname} Profile', user=user)
-    # else:
-    #     return redirect(url_for('index'))
-    return render_template('profile.html', title=f'{current_user.fullname} Profile')
+    form = EditProfile()
+
+    user = User.query.filter_by(username=username).first()
+    posts = user.posts
+    return render_template('profile.html', title=f'{user.fullname} Profile', user=user, posts=posts)
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 @login_required
@@ -70,10 +66,23 @@ def index():
 
     return render_template('index.html', title='Home', form=form, posts=posts)
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignUpForm()
-    return render_template('signup.html', title='SignUp', form=form)
+    
+    if form.validate_on_submit():
+        user = User(
+            fullname = form.fullname.data,
+            username = form.username.data,
+            email = form.email.data,
+            password = form.password.data
+        )
+        db.session.add(user)
+        db.session.commit()
+        flash('Your account has been created!', 'success')
+        return redirect(url_for('login'))
+    
+    return render_template('signup.html', title='Sign Up', form=form)
 
 @app.route('/about')
 def about():

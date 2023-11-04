@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         * {
-            padding: 0;
-            margin: 0;
+            padding: 0px;
+            margin: 0px;
             box-sizing: border-box;
         }
 
@@ -16,9 +16,9 @@
         }
 
         section.content {
-            min-height: calc(100vh = 100px);
+            min-height: calc(100vh - 100px);
             width: 576px;
-            margin: 0 auto;
+            margin: 0px auto;
         }
 
         header ul li {
@@ -30,23 +30,80 @@
         }
 
         div.post-container {
-            padding: 5px;
             border: 1px solid black;
             margin: 50px auto;
             text-align: center;
+            padding: 5px;
         }
 
         img {
-            width: 550px;
+            width: 500px;
         }
 
-        div.pagination.box {
+        div.pagination-box {
             border: 1px solid black;
             text-align: center;
             padding: 5px;
             margin-bottom: 30px;
         }
-        
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 900px;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .image-item {
+            flex: 0 0 calc(33.33% - 20px);
+            margin: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-item img {
+            max-width: 100%;
+            max-height: 180px;
+            display: block;
+        }
+
+        .profile-card {
+            border: 1px solid black;
+            display: flex;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0px;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            line-height: 100px;
+        }
+
+        .profile-photo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .profile-info {
+            margin-left: 20px;
+            text-align: left;
+        }
+
+        .profile-info h2 {
+            margin: 0;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+        }
     </style>
     {% if title %}
         <title>{{ title }} - Website</title>
