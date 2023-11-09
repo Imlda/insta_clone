@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="group-form">
+                <legend class="form-label">Sign Up</legend>
+
+                <div class="group-form">
+                    {{ form.username.label(class="form-label") }}
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class="group-form">
+                    {{ form.fullname.label(class="form-label") }}
+                    {% if form.fullname.errors %}
+                        {{ form.fullname(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.fullname.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.fullname(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class="group-form">
+                    {{ form.bio.label(class="form-label") }}
+                    {% if form.bio.errors %}
+                        {{ form.bio(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.bio.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.bio(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.profile_pic.label(class="form-control-label") }}
+                    {{ form.profile_pic(class="form-control-file") }}
+                    {% for error in form.profile_pic.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </fieldset>
+            <div class="group-form">
+                {{ form.submit(class="btn btn-outline-success") }}
+            </div>
+            <small class="form-text">
+                <a href="{{ url_for('login') }}">Sudah punya akun?</a>
+            </small>
+        </form>
+    </div>
+</div>
+{% endblock content %}

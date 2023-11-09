@@ -47,7 +47,6 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     text = db.Column(db.Text, nullable=False)
     comment_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    # comment_status = db.Column(db.Boolean, default=True)
     hidden = db.Column(db.Boolean, default=False)
 
 class Like(db.Model):

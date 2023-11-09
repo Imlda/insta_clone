@@ -3,13 +3,18 @@
 {% block content %}
     <div class="profile-card">
         <div class="profile-photo">
-            <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Image">
+            {% if current_user.profile_pic %}
+                <img src="{{ url_for('static', filename='images/' + current_user.profile_pic) }}" alt="">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/default.png') }}" alt="">
+            {% endif %}
         </div>
         <div class="profile-info">
             <h2>{{current_user.fullname}}</h2>
             <p>{{ current_user.bio }}</p>
             <p>Following: {{ current_user.following_users|length }}</p>
             <p>Follower: {{ current_user.follower_users|length }}</p>
+            <a href="{{ url_for('edit_profile') }}" class="btn btn-primary">Edit Profile</a>
         </div>
     </div>
 
@@ -21,3 +26,5 @@
         {% endfor %}
     </div>
 {% endblock content %}
+
+
