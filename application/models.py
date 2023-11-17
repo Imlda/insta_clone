@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(128), nullable=False, unique=True)
     following_users = db.relationship("Relation", foreign_keys="Relation.id_following", backref="following", lazy=True)
     follower_users = db.relationship("Relation", foreign_keys="Relation.id_follower", backref="follower", lazy=True)
-    posts = db.relationship("Post", backref="posts_user", lazy=True)
+    posts = db.relationship("Post", backref="author", lazy=True)    
     comments = db.relationship("Comment", backref="comments_user", lazy=True)
     likes = db.relationship("Like", backref="likes_user", lazy=True)
 

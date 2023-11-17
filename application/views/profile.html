@@ -1,30 +1,31 @@
+
 {% extends "layout.html" %}
 
 {% block content %}
     <div class="profile-card">
         <div class="profile-photo">
             {% if current_user.profile_pic %}
-                <img src="{{ url_for('static', filename='images/' + current_user.profile_pic) }}" alt="">
+                <img src="{{ url_for('static', filename='images/' + current_user.profile_pic) }}" alt="Profile Photo">
             {% else %}
-                <img src="{{ url_for('static', filename='images/default.png') }}" alt="">
+                <img src="{{ url_for('static', filename='images/default.png') }}" alt="Default Profile Photo">
             {% endif %}
         </div>
         <div class="profile-info">
-            <h2>{{current_user.fullname}}</h2>
+            <h2>{{ current_user.fullname }}</h2>
             <p>{{ current_user.bio }}</p>
             <p>Following: {{ current_user.following_users|length }}</p>
             <p>Follower: {{ current_user.follower_users|length }}</p>
             <a href="{{ url_for('edit_profile') }}" class="btn btn-primary">Edit Profile</a>
+            <a class="btn btn-primary" href="{{ url_for('reset_password') }}">Reset Password</a>
         </div>
     </div>
 
     <div class="image-container">
         {% for post in posts %}
-        <div class="image-item">
-            <img src="{{ url_for('static', filename='' + post.photo) }}" alt="Post Image">
-        </div>
+            <div class="image-item">
+                <img src="{{ url_for('static', filename=post.photo) }}" alt="Post Image">
+                <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary">Edit Post</a>
+            </div> 
         {% endfor %}
     </div>
 {% endblock content %}
-
-

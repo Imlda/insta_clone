@@ -14,7 +14,7 @@ class SignUpForm(FlaskForm):
     username = StringField("username", validators=[DataRequired(), Length(min=4, max=12), exists_username])
     fullname = StringField("full name", validators=[DataRequired(), Length(min=4, max=16)])
     email = EmailField("email", validators=[DataRequired(), Email(), exists_email])
-    password = PasswordField("password", validators=[DataRequired(), Length(min=8)])
+    password = PasswordField("password", validators=[DataRequired(), Length(min=4)])
     confirm_password = PasswordField("confirm_password", validators=[DataRequired(), Length(min=8), EqualTo("password")])
     submit = SubmitField("Sign up")
 
@@ -32,12 +32,13 @@ class CreatePostForm(FlaskForm):
 
 class EditPostForm(FlaskForm):
     caption = StringField("caption")
+    photo = FileField("photo", validators=[FileAllowed(["jpg", "png", "jpeg"])])
     submit = SubmitField('Save Changes')
 
 class ResetPasswordForm(FlaskForm):
-    old_pass = PasswordField("old password", validators=[DataRequired(), Length(min=8)])
-    new_pass = PasswordField("new password", validators=[DataRequired(), Length(min=8)])
-    confirm_pass = PasswordField("confirm new pass", validators=[DataRequired(), Length(min=8), EqualTo("new_pass")])
+    old_pass = PasswordField("old password", validators=[DataRequired(), Length(min=4)])
+    new_pass = PasswordField("new password", validators=[DataRequired(), Length(min=4)])
+    confirm_pass = PasswordField("confirm new pass", validators=[DataRequired(), Length(min=4), EqualTo("new_pass")])
     submit = SubmitField("reset password")
 
 class ForgotPasswordForm(FlaskForm):
@@ -46,6 +47,7 @@ class ForgotPasswordForm(FlaskForm):
     submit = SubmitField("send link verification to email")
 
 class VerificationForm(FlaskForm):
-    password = PasswordField("new password", validartors=[DataRequired(), Length(min=8)])
+    password = PasswordField("new password", validators=[DataRequired(), Length(min=4)])
     confirm_password = PasswordField("confirm new password", validators=[DataRequired(), Length(min=8), EqualTo("password")])
     submit = SubmitField("reset password")
+

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 # from flask_session import Session
 from flask_login import LoginManager
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from datetime import timedelta
@@ -24,6 +25,7 @@ migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "info"
+cors = CORS(app)
 
 from application.routes import *
 from application.models import *

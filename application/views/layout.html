@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         * {
-            padding: 0px;
-            margin: 0px;
+            padding: 0;
+            margin: 0;
             box-sizing: border-box;
         }
 
@@ -16,13 +15,24 @@
         }
 
         section.content {
-            min-height: calc(100vh - 100px);
-            width: 576px;
-            margin: 0px auto;
+            min-height: calc(100vh = 100px);
+            width: 430px;
+            margin: 0 auto;
         }
 
         header ul li {
             display: inline-block;
+        }
+        a{
+            font-weight: 600;
+        }
+        ul{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding-top: 10px;
+            font-weight: 600;
+            padding-bottom: 10px;
         }
 
         div.new-post-box {
@@ -30,23 +40,93 @@
         }
 
         div.post-container {
+            padding: 5px;
             border: 1px solid black;
             margin: 50px auto;
             text-align: center;
-            padding: 5px;
         }
 
         img {
-            width: 500px;
+            width: 400px;
+        }
+        .logo{
+            width: 50px;
+            height: 50px;
+        }
+        .image-item{
+            width: 50px;
+            height: 130px;
         }
 
-        div.pagination-box {
+        div.pagination.box {
             border: 1px solid black;
             text-align: center;
             padding: 5px;
             margin-bottom: 30px;
         }
+        .info {   
+            width: 100%;   
+            margin: 7px 0;  
+            padding: 12px 20px;   
+            display: inline-block;   
+            border: 1px solid gray;   
+            box-sizing: border-box;   
+        } 
+        footer{
+            width: 430px;
+            /* text-align: left; */
+            /* text-align: center; */
+            /* align-items: center; */
+        }
+        a{
+            color: #5CA2E2;
+            text-decoration: solid;
+            text-align: right;
+        }
+        h1{
+            text-align: center;
+        }
 
+        button {   
+            background-color: #5CA2E2;   
+            width: 100%;  
+            color: white;   
+            padding: 15px;   
+            margin: 10px 0px;   
+            border: none;   
+            cursor: pointer;   
+            }  
+        input[type=text], input[type=password], input[type=email] {   
+            width: 100%;   
+            margin: 7px 0;  
+            padding: 12px 20px;   
+            display: inline-block;   
+            border: 1px solid gray;   
+            box-sizing: border-box;   
+            }  
+        input[type=submit]{
+            width: 100%;
+            margin: 7px 0;  
+            padding: 12px 20px;   
+            display: inline-block;   
+            border: 1px solid #5CA2E2;   
+            color: white;
+            box-sizing: border-box;  
+            background-color: #5CA2E2; 
+        }
+        button:hover {   
+            opacity: 0.7;   
+            }   
+            
+        .container {   
+            padding: 25px;   
+            display: table-cell; 
+            text-align: center; 
+            vertical-align: middle; 
+            /* border: 2px solid black;  */
+            }   
+
+        /* PROFILE.HTML */
         .image-container {
             display: flex;
             flex-wrap: wrap;
@@ -56,17 +136,37 @@
         }
 
         .image-item {
-            flex: 0 0 calc(33.33% - 20px);
+            flex: 0 0 calc(33.33% - 20px); /* Adjust the width and margin as needed */
             margin: 10px;
             box-sizing: border-box;
             overflow: hidden;
             border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+        }
+
+        .edit-button {
+            display: flex;
+        }
+
+        .createPosts{
+            flex: 0 0 calc(33.33% - 20px); /* Adjust the width and margin as needed */
+            margin: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #5CA2E2;
+        }
+        .toCreate{
+            color: white;
+            text-decoration: solid;
+            /* text-align: right;  */
         }
 
         .image-item img {
             max-width: 100%;
-            max-height: 180px;
+            height: auto;
             display: block;
         }
 
@@ -103,6 +203,28 @@
 
         .profile-info p {
             margin: 5px 0;
+        }
+        .copyright{
+            width: 430px;
+            /* height: auto; */
+            color: gray;
+            /* text-align: center; */
+        }
+        .forgot{
+            text-align: right;
+            font-size: 16px;
+        }
+        .editProfile{
+            text-align: center;
+            font-weight: 600;
+            padding-top: 20px;
+        }
+        .post-header{
+            display: flex;
+            gap: 10px;
+        }
+        .post-header img{
+            border-radius: 50%;
         }
     </style>
     {% if title %}

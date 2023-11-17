@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="form-container">
+        
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -41,13 +42,14 @@
             </div>
             <div class="">
                 <small class="form-text">
-                    <a href="#">Lupa kata sandi?</a>
+                    <a href="{{ url_for('forgot_password')}}">Forgot Password?</a>
                 </small>
             </div>
             <small class="form-text">
-                <a href="{{ url_for('signup') }}">Belum punya akun?</a>
+                <a href="{{ url_for('signup') }}">Don't have an account?</a>
             </small>
         </form>
     </div>
 </div>
+
 {% endblock content %}
