@@ -1,17 +1,11 @@
 from flask import render_template, redirect, url_for, flash, request, make_response, jsonify
 from flask_login import login_user, login_required, logout_user, current_user
-from werkzeug.utils import secure_filename
-import os
 
 from application import app
 from application.models import *
 from application.forms import *
 from application.utils import save_image
-
-
-UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static/images/posts')
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+from flask import abort
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -99,9 +93,6 @@ def profile(username):
     posts = Post.query.filter_by(author_id=user.id).all()
     return render_template('profile.html', title=f'{user.fullname} Profile', user=user, posts=posts)
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -125,27 +116,56 @@ def edit_profile():
         flash('Your profile has been updated!', 'success')
         return redirect(url_for('profile', username=current_user.username))
 
-    form.username.data = current_user.username
-    form.fullname.data = current_user.fullname
-    form.bio.data = current_user.bio
+        form.username.data = current_user.username
+        form.fullname.data = current_user.fullname
+        form.bio.data = current_user.bio
 
     return render_template('edit_profile.html', title=f'Edit {current_user.username} Profile', form=form)
 
 @app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
 def edit_post(post_id):
-    form = EditPostForm()
+    edit_form = EditPostForm()
 
     post = Post.query.get(post_id)
-    if form.validate_on_submit():
-        post.caption = form.caption.data
+    if edit_form.validate_on_submit():
+        post.caption = edit_form.caption.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('profile', username=current_user.username))
 
-    elif request.method == 'GET':
-        form.caption.data = post.caption
+    elif request.method == 'POST' and 'delete_post' in request.form:
+        if post.author_id == current_user.id:
+            db.session.delete(post)
+            db.session.commit()
+            flash('Your post has been deleted!', 'success')
+            return redirect(url_for('index'))
+        else:
+            abort(403)
 
-    return render_template('edit_post.html', title='Edit Post', form=form, post=post)
+    elif request.method == 'GET':
+        edit_form.caption.data = post.caption
+
+    return render_template('edit_post.html', title='Edit Post', edit_form=edit_form, post=post)
+
+@app.route('/delete_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get(post_id)
+
+    if not post:
+        abort(404)
+
+    if post.author_id == current_user.id:
+        Like.query.filter_by(post_id=post.id).delete()
+
+        db.session.delete(post)
+        db.session.commit()
+        flash('Your post has been deleted!', 'success')
+    else:
+        abort(403)
+
+    return redirect(url_for('index'))
 
 @app.route('/', methods=['GET', 'POST'])
 @login_required
@@ -191,18 +211,21 @@ def signup():
 def about():
     return render_template('about.html', title='About')
 
-@app.route('/like', methods=['GET', 'POST'])
+@app.route('/like', methods=['POST'])
 @login_required
 def like():
     data = request.json
     post_id = int(data['postId'])
-    like = Like.query.filter_by(user_id=current_user.id,post_id=post_id).first()
+    like = Like.query.filter_by(user_id=current_user.id, post_id=post_id).first()
+    
     if not like:
         like = Like(user_id=current_user.id, post_id=post_id)
         db.session.add(like)
         db.session.commit()
-        return make_response(jsonify({"status" : True}), 200)
-    
-    db.session.delete(like)
-    db.session.commit()
-    return make_response(jsonify({"status" : False}), 200)
+    else:
+        db.session.delete(like)
+        db.session.commit()
+
+    updated_like_count = Like.query.filter_by(post_id=post_id).count()
+
+    return jsonify({"status": not bool(like), "likeCount": updated_like_count})

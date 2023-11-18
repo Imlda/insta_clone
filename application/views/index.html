@@ -36,7 +36,8 @@
                 <p>{{ post.caption }}</p>
     
                 <div class="post-footer">
-                    <span id="likeBtn" data-post-id="{{ post.id }}">❤️</span><span id="likeCounter">{{post.likes | length}}</span>
+                    <span class="likeBtn" data-post-id="{{ post.id }}">❤️</span>
+                    <span id="likeCounter{{ post.id }}">{{ post.likes | length }}</span>
                     <span id="commentBtn" data-post-id="{{ post.id }}">🚩</span><span id="commentCounter">{{ post.comments | length }}</span>
                 </div>
             </div>
@@ -44,23 +45,31 @@
     </div>
 
     <script>
-        document.querySelectorAll("#likeBtn").forEach(btn => {
-            btn.addEventListener('click', function(){
+        document.querySelectorAll(".likeBtn").forEach(btn => {
+            btn.addEventListener('click', function () {
+                const postId = this.dataset.postId;
+                const likeCounter = document.getElementById(`likeCounter${postId}`);
+    
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', 'http://127.0.0.1:5000/like', true);
                 xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-
+    
                 xhr.onload = function () {
                     if (xhr.status === 200) {
                         const response = JSON.parse(xhr.responseText);
                         console.log(response.status);
-                    } 
+    
+                        // Update the like count without reloading the page
+                        likeCounter.textContent = response.likeCount;
+                    }
                 };
-                const data = JSON.stringify({ 'postId': this.dataset.postId });
+    
+                const data = JSON.stringify({ 'postId': postId });
                 xhr.send(data);
             })
         })
     </script>
+    
 
     <div class="pagination-box">
         {% for page_number in posts.iter_pages() %}

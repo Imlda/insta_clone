@@ -79,7 +79,7 @@
             /* align-items: center; */
         }
         a{
-            color: #5CA2E2;
+            color: #75a7d7;
             text-decoration: solid;
             text-align: right;
         }
@@ -88,7 +88,7 @@
         }
 
         button {   
-            background-color: #5CA2E2;   
+            background-color: #75a7d7;   
             width: 100%;  
             color: white;   
             padding: 15px;   
@@ -109,21 +109,21 @@
             margin: 7px 0;  
             padding: 12px 20px;   
             display: inline-block;   
-            border: 1px solid #5CA2E2;   
+            border: 1px solid #75a7d7;   
             color: white;
             box-sizing: border-box;  
-            background-color: #5CA2E2; 
+            background-color: #75a7d7; 
         }
         button:hover {   
             opacity: 0.7;   
             }   
             
         .container {   
-            padding: 25px;   
+            width: 50em;
+            padding: 40px;   
             display: table-cell; 
             text-align: center; 
             vertical-align: middle; 
-            /* border: 2px solid black;  */
             }   
 
         /* PROFILE.HTML */
@@ -131,32 +131,57 @@
             display: flex;
             flex-wrap: wrap;
             max-width: 900px;
-            justify-content: flex-start;
-            align-items: center;
+            margin: 0 auto;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
 
         .image-item {
-            flex: 0 0 calc(33.33% - 20px); /* Adjust the width and margin as needed */
-            margin: 10px;
-            box-sizing: border-box;
-            overflow: hidden;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 125px;
+            width: 125px;
+            margin-bottom: 20px;
+            position: relative;
             display: flex;
+        }
+
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .edit-button {
-            display: flex;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        @media (max-width: 767px) {
+            .image-item {
+                width: 100%;
+                margin: 0 0 20px;
+            }
+        }
+
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
 
         .createPosts{
-            flex: 0 0 calc(33.33% - 20px); /* Adjust the width and margin as needed */
+            flex: 0 0 calc(33.33% - 20px);
             margin: 10px;
             box-sizing: border-box;
             overflow: hidden;
             border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #5CA2E2;
+            background-color: #75a7d7;
         }
         .toCreate{
             color: white;
@@ -189,7 +214,7 @@
 
         .profile-photo img {
             max-width: 100%;
-            height: auto;
+            height: 100px;
         }
 
         .profile-info {

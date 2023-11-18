@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 
 {% block content %}
@@ -9,7 +8,7 @@
             {% else %}
                 <img src="{{ url_for('static', filename='images/default.png') }}" alt="Default Profile Photo">
             {% endif %}
-        </div>
+        </div>      
         <div class="profile-info">
             <h2>{{ current_user.fullname }}</h2>
             <p>{{ current_user.bio }}</p>
@@ -19,13 +18,16 @@
             <a class="btn btn-primary" href="{{ url_for('reset_password') }}">Reset Password</a>
         </div>
     </div>
-
     <div class="image-container">
         {% for post in posts %}
             <div class="image-item">
-                <img src="{{ url_for('static', filename=post.photo) }}" alt="Post Image">
-                <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary">Edit Post</a>
-            </div> 
+                <div class="image-wrapper">
+                    <img src="{{ url_for('static', filename=post.photo) }}" alt="Post Image">
+                    <div class="edit-button">
+                        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-primary">✍️</a>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
 {% endblock content %}
